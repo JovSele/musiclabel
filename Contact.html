@@ -3,67 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Links Page</title>
+    <title>Dynamic Link Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         a {
-            display: block;
-            margin: 10px 0;
-            font-size: 18px;
+            font-size: 24px;
+            text-decoration: none;
+            color: #3498db;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
     <script>
         // Array of link objects with URL and text
         const linksArray = [
-            { url: 'https://example.com/1', text: 'Link 1' },
-            { url: 'https://example.com/2', text: 'Link 2' },
-            { url: 'https://example.com/3', text: 'Link 3' },
-            { url: 'https://example.com/4', text: 'Link 4' },
-            { url: 'https://example.com/5', text: 'Link 5' },
-            { url: 'https://example.com/6', text: 'Link 6' },
-            { url: 'https://example.com/7', text: 'Link 7' },
-            { url: 'https://example.com/8', text: 'Link 8' },
-            { url: 'https://example.com/9', text: 'Link 9' },
-            { url: 'https://example.com/10', text: 'Link 10' }
+            { url: 'https://example.com/1', text: 'Visit Example 1' },
+            { url: 'https://example.com/2', text: 'Visit Example 2' },
+            { url: 'https://example.com/3', text: 'Visit Example 3' },
+            { url: 'https://example.com/4', text: 'Visit Example 4' },
+            { url: 'https://example.com/5', text: 'Visit Example 5' },
+            { url: 'https://example.com/6', text: 'Visit Example 6' },
+            { url: 'https://example.com/7', text: 'Visit Example 7' },
+            { url: 'https://example.com/8', text: 'Visit Example 8' },
+            { url: 'https://example.com/9', text: 'Visit Example 9' },
+            { url: 'https://example.com/10', text: 'Visit Example 10' }
         ];
 
-        // Function to update the links automatically
-        function updateLinks() {
-            const links = document.querySelectorAll('.dynamic-link');
-            for (let i = 0; i < links.length; i++) {
-                // Change the href and the text dynamically
-                links[i].href = linksArray[i].url;
-                links[i].textContent = linksArray[i].text;
-            }
+        // Function to update the single link automatically
+        function updateLink() {
+            const linkElement = document.querySelector('.dynamic-link');
+            const randomIndex = Math.floor(Math.random() * linksArray.length);
+
+            // Change the href and the text dynamically
+            linkElement.href = linksArray[randomIndex].url;
+            linkElement.textContent = linksArray[randomIndex].text;
         }
 
-        // Automatically update the links every 5 seconds
-        setInterval(() => {
-            // Shuffle linksArray to get new order of links
-            linksArray.sort(() => Math.random() - 0.5);
-            updateLinks();
-        }, 5000);
+        // Automatically update the link every 5 seconds
+        setInterval(updateLink, 5000);
 
-        // Load initial links on page load
-        window.onload = updateLinks;
+        // Load the first link on page load
+        window.onload = updateLink;
     </script>
 </head>
 <body>
-    <h1>Automatically Changing Links</h1>
 
-    <!-- 10 dynamic links -->
-    <a class="dynamic-link" href="#">Link 1</a>
-    <a class="dynamic-link" href="#">Link 2</a>
-    <a class="dynamic-link" href="#">Link 3</a>
-    <a class="dynamic-link" href="#">Link 4</a>
-    <a class="dynamic-link" href="#">Link 5</a>
-    <a class="dynamic-link" href="#">Link 6</a>
-    <a class="dynamic-link" href="#">Link 7</a>
-    <a class="dynamic-link" href="#">Link 8</a>
-    <a class="dynamic-link" href="#">Link 9</a>
-    <a class="dynamic-link" href="#">Link 10</a>
+    <!-- One dynamic link -->
+    <a class="dynamic-link" href="#">Loading...</a>
 
 </body>
 </html>
