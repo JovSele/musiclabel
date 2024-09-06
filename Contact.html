@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Link with Timer</title>
+    <title>Dynamic Link with Timer and Count</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,19 +27,35 @@
             font-size: 18px;
             color: #2c3e50;
         }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
     <script>
+        // Array of link objects with URL, text, and count
         const linksArray = [
-            { url: 'https://example.com/1', text: 'Visit Example 1' },
-            { url: 'https://example.com/2', text: 'Visit Example 2' },
-            { url: 'https://example.com/3', text: 'Visit Example 3' },
-            { url: 'https://example.com/4', text: 'Visit Example 4' },
-            { url: 'https://example.com/5', text: 'Visit Example 5' },
-            { url: 'https://example.com/6', text: 'Visit Example 6' },
-            { url: 'https://example.com/7', text: 'Visit Example 7' },
-            { url: 'https://example.com/8', text: 'Visit Example 8' },
-            { url: 'https://example.com/9', text: 'Visit Example 9' },
-            { url: 'https://example.com/10', text: 'Visit Example 10' }
+            { url: 'https://example.com/1', text: 'Visit Example 1', count: 0 },
+            { url: 'https://example.com/2', text: 'Visit Example 2', count: 0 },
+            { url: 'https://example.com/3', text: 'Visit Example 3', count: 0 },
+            { url: 'https://example.com/4', text: 'Visit Example 4', count: 0 },
+            { url: 'https://example.com/5', text: 'Visit Example 5', count: 0 },
+            { url: 'https://example.com/6', text: 'Visit Example 6', count: 0 },
+            { url: 'https://example.com/7', text: 'Visit Example 7', count: 0 },
+            { url: 'https://example.com/8', text: 'Visit Example 8', count: 0 },
+            { url: 'https://example.com/9', text: 'Visit Example 9', count: 0 },
+            { url: 'https://example.com/10', text: 'Visit Example 10', count: 0 }
         ];
 
         let countdown = 5; // Initial countdown value in seconds
@@ -52,6 +68,12 @@
             // Set the new link URL and text
             linkElement.href = linksArray[randomIndex].url;
             linkElement.textContent = linksArray[randomIndex].text;
+
+            // Increment the count for the displayed link
+            linksArray[randomIndex].count++;
+
+            // Update the table to reflect new counts
+            updateTable();
 
             // Reset countdown to 5 after each link change
             countdown = 5;
@@ -71,6 +93,29 @@
             }
         }
 
+        // Function to update the table with the number of times each link was shown
+        function updateTable() {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = ''; // Clear the table content
+
+            // Loop through the links array and display each link's count
+            linksArray.forEach((link, index) => {
+                const row = document.createElement('tr');
+                const indexCell = document.createElement('td');
+                const textCell = document.createElement('td');
+                const countCell = document.createElement('td');
+
+                indexCell.textContent = index + 1;
+                textCell.textContent = link.text;
+                countCell.textContent = link.count;
+
+                row.appendChild(indexCell);
+                row.appendChild(textCell);
+                row.appendChild(countCell);
+                tableBody.appendChild(row);
+            });
+        }
+
         // Function to start the timer and link update
         window.onload = () => {
             updateLink(); // Set initial link
@@ -85,6 +130,20 @@
     
     <!-- Timer display -->
     <div id="timer">Next link change in 5 seconds</div>
+
+    <!-- Table to display how many times each link was shown -->
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Link Text</th>
+                <th>Times Shown</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Table rows will be dynamically generated here -->
+        </tbody>
+    </table>
 
 </body>
 </html>
