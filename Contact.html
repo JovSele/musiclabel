@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Link Page</title>
+    <title>Dynamic Link with Timer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -21,9 +22,13 @@
         a:hover {
             text-decoration: underline;
         }
+        #timer {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
     </style>
     <script>
-        // Array of link objects with URL and text
         const linksArray = [
             { url: 'https://example.com/1', text: 'Visit Example 1' },
             { url: 'https://example.com/2', text: 'Visit Example 2' },
@@ -37,27 +42,47 @@
             { url: 'https://example.com/10', text: 'Visit Example 10' }
         ];
 
-        // Function to update the single link automatically
+        let countdown = 5; // Set countdown to 5 seconds
+
         function updateLink() {
             const linkElement = document.querySelector('.dynamic-link');
             const randomIndex = Math.floor(Math.random() * linksArray.length);
 
-            // Change the href and the text dynamically
+            // Update link with random URL and text
             linkElement.href = linksArray[randomIndex].url;
             linkElement.textContent = linksArray[randomIndex].text;
+
+            // Reset countdown
+            countdown = 5;
         }
 
-        // Automatically update the link every 5 seconds
-        setInterval(updateLink, 5000);
+        function updateTimer() {
+            // Update the timer display
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `Next link change in ${countdown} seconds`;
+
+            // Decrease countdown each second
+            countdown--;
+
+            if (countdown < 0) {
+                updateLink(); // Change the link when countdown hits 0
+            }
+        }
 
         // Load the first link on page load
-        window.onload = updateLink;
+        window.onload = () => {
+            updateLink();
+            setInterval(updateTimer, 1000); // Update the timer every second
+        };
     </script>
 </head>
 <body>
 
     <!-- Display only one dynamic link -->
     <a class="dynamic-link" href="#">Loading...</a>
+    
+    <!-- Timer display -->
+    <div id="timer">Next link change in 5 seconds</div>
 
 </body>
 </html>
