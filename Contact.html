@@ -42,36 +42,38 @@
             { url: 'https://example.com/10', text: 'Visit Example 10' }
         ];
 
-        let countdown = 5; // Set countdown to 5 seconds
+        let countdown = 5; // Initial countdown value in seconds
 
+        // Function to update the link
         function updateLink() {
             const linkElement = document.querySelector('.dynamic-link');
             const randomIndex = Math.floor(Math.random() * linksArray.length);
 
-            // Update link with random URL and text
+            // Set the new link URL and text
             linkElement.href = linksArray[randomIndex].url;
             linkElement.textContent = linksArray[randomIndex].text;
 
-            // Reset countdown
+            // Reset countdown to 5 after each link change
             countdown = 5;
         }
 
+        // Function to update the countdown timer display
         function updateTimer() {
-            // Update the timer display
             const timerElement = document.getElementById('timer');
             timerElement.textContent = `Next link change in ${countdown} seconds`;
 
             // Decrease countdown each second
             countdown--;
 
+            // When countdown reaches 0, update the link
             if (countdown < 0) {
-                updateLink(); // Change the link when countdown hits 0
+                updateLink();
             }
         }
 
-        // Load the first link on page load
+        // Function to start the timer and link update
         window.onload = () => {
-            updateLink();
+            updateLink(); // Set initial link
             setInterval(updateTimer, 1000); // Update the timer every second
         };
     </script>
